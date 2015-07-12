@@ -1,0 +1,4 @@
+pause_home x=621 y=1581 624*220
+pause_sound_1 x=621 y=1263 624*220
+pause_sound_2 x=621 y=1263 624*220
+pause_continue x=621 y=945 624*220

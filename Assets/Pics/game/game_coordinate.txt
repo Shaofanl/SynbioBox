@@ -1,0 +1,7 @@
+parts no coordinate 146*146
+game_box y=229 148*71
+game_charge x=621 y=86 900*60
+game_down x=621 y=86 1242*171
+game_life x=1058 y=2128 102*102
+game_LvX x=86 y=86 171*169
+game_pause x=1160 y=86 168*169

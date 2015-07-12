@@ -1,0 +1,4 @@
+over_home x=340 y=756 204*204
+over_again x=621 y=756 204*204
+over_collection x=891 y=756 204*204
+over_menu x=621 y=1104 1246*2211

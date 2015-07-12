@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\GameManager.js">
+    <Files>
+      <File FileName="Assets\scripts\Mutebutton.js" Line="23" Column="21" />
+      <File FileName="Assets\scripts\ReturnBtn.js" Line="6" Column="27" />
+      <File FileName="Assets\scripts\GameManager.js" Line="81" Column="25" />
+      <File FileName="Assets\scripts\PartBhv.js" Line="22" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

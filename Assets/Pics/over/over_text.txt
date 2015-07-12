@@ -1,0 +1,4 @@
+0000（本次游戏得分） x=621 y=1472 字号24 字体GeosansLight 颜色#434343 居中对齐
+9999（历史最高得分） x=621 y=1341 字号12 字体GeosansLight 颜色#434343 居中对齐
+numbers of special parts: 999（本次游戏获得特殊parts的数量） x=621 y=1130 字号10 字体GeosansLight 颜色#434343 居中对齐
+times of storm mode: 999（本次游戏中进入无敌模式的次数） x=621 y=993 字号10 字体GeosansLight 颜色#434343 居中对齐
