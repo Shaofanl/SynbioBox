@@ -11,7 +11,7 @@ var bg_down : Transform;
 
 var startTime : float;
 var last_part_time : float;
-var part_frequent: float; // in second
+static var part_frequent: float = 1.0; // in second
 
 var leftWall : BoxCollider2D;
 var rightWall : BoxCollider2D;
@@ -21,9 +21,15 @@ static var isEndlessMode: boolean;
 static var isPlaying: boolean = false;
 
 static var score : int = 0;
-static var maxscore : int = 0;
 static var life : int = 5;
+static var drop_speed : float = -400;
 
+// endless mode
+static var maxScore : int = 0;
+static var energyBar : int = 0;
+static var nextPart : String;
+static var isGodMode : boolean = false;
+static var GodModeTime : float;
 
 function Start () {
 
@@ -50,16 +56,28 @@ function Start () {
 	
 	life = 5;
 	score = 0;
-	if (PlayerPrefs.HasKey("MaxScore")) {
-		maxscore = PlayerPrefs.GetInt("MaxScore");
-	}
-	else {
-		maxscore = 0;
-		PlayerPrefs.SetInt("MaxScore", maxscore);
+	
+	if (isEndlessMode) {
+		if (PlayerPrefs.HasKey("maxScore")) {
+			maxScore = PlayerPrefs.GetInt("maxScore");
+		}
+		else {
+			maxScore = 0;
+			PlayerPrefs.SetInt("maxScore", maxScore);
+		}
+		energyBar = 0;
+		nextPart = 'A';
+		isGodMode = false;
 	}
 	isPlaying = true;
 }
 
+function SetSize(trans : RectTransform , newSize : Vector2) {
+    var oldSize = trans.rect.size;
+    var deltaSize = newSize - oldSize;
+    trans.offsetMin = trans.offsetMin - new Vector2(deltaSize.x * trans.pivot.x, deltaSize.y * trans.pivot.y);
+    trans.offsetMax = trans.offsetMax + new Vector2(deltaSize.x * (1f - trans.pivot.x), deltaSize.y * (1f - trans.pivot.y));
+}
 function Update () {
 	if (!isPlaying) return;
 	var guiTime = Time.time - startTime;
@@ -74,13 +92,50 @@ function Update () {
 		var part = GameObject.FindGameObjectsWithTag("Part"+part_no)[part_color];		
 		Instantiate(part, Vector3(pos, 1100f, 0f), Quaternion.identity);
 	}
+	
+	GameObject.FindGameObjectWithTag("lifeLabel").GetComponent.<UI.Text>().text = 
+				String.Format("X {0}", life);
+	
+	// Endless Mode
+	if (isEndlessMode) {
+		// draw
+		var boxsize = GameObject.FindGameObjectWithTag("Panel").GetComponent.<RectTransform>().rect.size;
+		GameObject.FindGameObjectWithTag("Bar").GetComponent.<RectTransform>().sizeDelta = new Vector2((2*energyBar/100f-1) * boxsize.x, boxsize.y);			 
+		//Debug.Log(energyBar);
+		
+		// score vs maxscore
+		GameObject.FindGameObjectWithTag("scoreLabel").GetComponent.<UI.Text>().text = 
+				String.Format("{0:0000}/{1:0000}", score, maxScore);
+		
+		// God Mode
+		if (isGodMode) {
+			var godtime = Time.time - GodModeTime;
+			if (godtime > 10) {
+				isGodMode = false;
+				drop_speed /= 2f;
+			}
+			else {
+				energyBar = (1f - godtime/10f)*100f;
+			}
+		}
+	}
 }
 
+
+static function energyUp(delta : int) {
+	energyBar += delta;
+	
+	if (energyBar > 100) {
+		isGodMode = true;
+		drop_speed *= 2f;
+		GodModeTime = Time.time;
+	}
+}
 static function Score (point : float) {
 	score += point;
-	if (score > maxscore) {
-		maxscore = score;
-		PlayerPrefs.SetInt("MaxScore", maxscore);
+	if (score > maxScore) {
+		maxScore = score;
+		PlayerPrefs.SetInt("maxScore", maxScore);
 	}
 }
 static function Dead () {
@@ -90,12 +145,59 @@ static function Dead () {
 		Application.LoadLevel(5);
 	}
 }
+static function CatchPart(part : String) {
+	if (isEndlessMode) { // Endless Mode
+		if (isGodMode) { // God Mode
+			Score(2.0);
+			return;
+		}
+		if (part[9] != nextPart) { // Endless Mode: Catch wrong
+			Debug.Log("catch wrong");
+			Dead();
+			//nextPart = 'A';
+		}
+		else { // Endless Mode: Catch correct
+			Score(1.0);
+			if (nextPart == 'A') nextPart = 'B';
+			else if (nextPart == 'B') nextPart = 'C';
+			else if (nextPart == 'C') nextPart = 'D';
+			else if (nextPart == 'D') {
+				nextPart = 'A';
+				Score(4.0); // extra credit
+				energyUp(10);
+			}
+		}
+	}
+	else { // debug mode
+		Score(1.0);
+		//Debug.Log("catch"+part[9]);
+	}
+}
+static function MissPart(part : String) {
+	if (isEndlessMode) { // Endless Mode
+		if (isGodMode) return;
+		if (part[9] != nextPart) { // Endless Mode: Miss correct
+			Score(1.0);
+			energyUp(2);
+		}
+		else { // Endless Mode: Miss wrong
+			Debug.Log("miss wrong");
+			Dead();
+			//nextPart = 'A';
+		}
+	}
+	else { // debug mode
+		Dead();
+		//Debug.Log("miss"+part[9]);
+	}
+}
 
 function OnGUI () {
 	//GUI.Label (new Rect (Screen.width/2-120, 3, 100, 100), "Score: " + score);
-	GameObject.FindGameObjectWithTag("scoreLabel").GetComponent.<UI.Text>().text = 
-			String.Format("{0:0000}/{1:0000}", score, maxscore);
-	GameObject.FindGameObjectWithTag("lifeLabel").GetComponent.<UI.Text>().text = 
-			String.Format("X {0}", life);
 }
+
+
+
+
+
 
