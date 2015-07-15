@@ -54,6 +54,8 @@
      <Compile Include="Assets\scripts\MainControl.js" />
      <Compile Include="Assets\scripts\Mutebutton.js" />
      <Compile Include="Assets\scripts\PartBhv.js" />
+     <Compile Include="Assets\scripts\PauseBtn.js" />
+     <Compile Include="Assets\scripts\PauseMenuBtn.js" />
      <Compile Include="Assets\scripts\ReturnBtn.js" />
      <None Include="Assets\Pics\game\game_guides.txt" />
      <None Include="Assets\Pics\game\game_coordinate.txt" />

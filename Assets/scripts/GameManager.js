@@ -23,6 +23,7 @@ static var isPlaying: boolean = false;
 static var score : int = 0;
 static var life : int = 5;
 static var drop_speed : float = -400;
+static var muted : boolean;
 
 // endless mode
 static var maxScore : int = 0;
@@ -70,6 +71,13 @@ function Start () {
 		isGodMode = false;
 	}
 	isPlaying = true;
+	
+	if (muted) {
+		var l = GameObject.FindGameObjectsWithTag("mute_btn");	
+		var temp_sprite : Sprite = l[0].GetComponent(SpriteRenderer).sprite;
+		l[0].GetComponent(SpriteRenderer).sprite = l[1].GetComponent(UI.Image).sprite;
+		l[1].GetComponent(UI.Image).sprite = temp_sprite;
+	}
 }
 
 function SetSize(trans : RectTransform , newSize : Vector2) {
