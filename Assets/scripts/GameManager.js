@@ -183,7 +183,7 @@ static function Dead () {
 	SoundSource.clip = _lossLifeClip;
 	SoundSource.Play();
 	
-	if (life <= 4) {
+	if (life <= 0) {
 		GameManager.isPlaying = false;
 		
 		// prepare
