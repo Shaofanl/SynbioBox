@@ -40,7 +40,10 @@ static var _correctMissClip : AudioClip;
 static var _lossLifeClip : AudioClip;
 static var SoundSource : AudioSource;
 
+static var intimes :int = 0;
+
 function Start () {
+	intimes ++;
 
 // part positions
 	/*
@@ -145,6 +148,7 @@ function Update () {
 			var godtime = Time.time - GodModeTime;
 			if (godtime > 10) {
 				isGodMode = false;
+				MusicControl.ChangePitch(1.0);
 				drop_speed /= 2f;
 			}
 			else {
@@ -160,6 +164,7 @@ static function energyUp(delta : int) {
 	
 	if (energyBar > 100) {
 		isGodMode = true;
+		MusicControl.ChangePitch(1.3);
 		drop_speed *= 2f;
 		GodModeTime = Time.time;
 	}
@@ -174,17 +179,35 @@ static function Score (point : float) {
 static function Dead () {
 	life--;
 	
+	SoundSource.volume = 0.2;
 	SoundSource.clip = _lossLifeClip;
 	SoundSource.Play();
 	
-	if (life <= 0) {
+	if (life <= 4) {
 		GameManager.isPlaying = false;
-		Application.LoadLevel(5);
+		
+		// prepare
+		Time.timeScale = 0;
+		if (isEndlessMode) {
+			var box = GameObject.FindGameObjectWithTag("EM_Over");
+			box.GetComponent(RectTransform).localPosition.z = -3;
+			
+			var texts = GameObject.FindGameObjectsWithTag("EM_Over_Text");
+			texts[0].GetComponent.<UI.Text>().text = String.Format("{0:0000}", maxScore);
+			texts[1].GetComponent.<UI.Text>().text = String.Format("times of invincible state: {0:000}", intimes);			
+			texts[2].GetComponent.<UI.Text>().text = String.Format("{0:0000}", score);			
+		}
+		else 
+			Application.LoadLevel(5);
 	}
 }
 static function CatchPart(part : String) {
 	if (isEndlessMode) { // Endless Mode
-		if (isGodMode) { // God Mode
+		if (isGodMode) { // God Mode			
+			SoundSource.volume = 1.0;
+			SoundSource.clip = _correctCatchClip;
+			SoundSource.Play();	
+		
 			Score(2.0);
 			return;
 		}
@@ -201,9 +224,10 @@ static function CatchPart(part : String) {
 			else if (nextPart == 'D') {
 				nextPart = 'A';
 				Score(4.0); // extra credit
-				energyUp(10);
+				//energyUp(10);
 			}
 			
+			SoundSource.volume = 1.0;
 			SoundSource.clip = _correctCatchClip;
 			SoundSource.Play();			
 		}
@@ -220,6 +244,7 @@ static function MissPart(part : String) {
 			Score(1.0);
 			energyUp(2);
 						
+			SoundSource.volume = 1.0;
 			SoundSource.clip = _correctMissClip;
 			SoundSource.Play();
 		}

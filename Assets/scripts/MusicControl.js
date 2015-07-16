@@ -25,6 +25,10 @@ static function Unmute() {
 	SoundSource.mute = false;
 }
 
+static function ChangePitch(p : float) {
+	SoundSource.pitch = p;
+}
+
 static function PlayMainBGM() { 
 	Debug.Log("asdf");
 	SoundSource.clip = MainBGM; 
