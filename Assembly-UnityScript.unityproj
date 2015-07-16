@@ -52,6 +52,7 @@
      <Compile Include="Assets\scripts\Helpbtn.js" />
      <Compile Include="Assets\scripts\Intro.js" />
      <Compile Include="Assets\scripts\MainControl.js" />
+     <Compile Include="Assets\scripts\MusicControl.js" />
      <Compile Include="Assets\scripts\Mutebutton.js" />
      <Compile Include="Assets\scripts\PartBhv.js" />
      <Compile Include="Assets\scripts\PauseBtn.js" />
@@ -61,6 +62,7 @@
      <None Include="Assets\Pics\game\game_coordinate.txt" />
      <None Include="Assets\Pics\main\main_coordinate.txt" />
      <None Include="Assets\Pics\over\over_text.txt" />
+     <None Include="Assets\Music\说明.txt" />
      <None Include="Assets\Pics\game\game_text.txt" />
      <None Include="Assets\Pics\over\over_coordinate.txt" />
      <None Include="Assets\Pics\pause\pause_coordinate.txt" />

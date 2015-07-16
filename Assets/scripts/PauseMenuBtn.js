@@ -13,9 +13,18 @@ function btn_mute () {
 	l[1].GetComponent(UI.Image).sprite = temp_sprite;
 	
 	GameManager.muted = ! GameManager.muted;
+	if (GameManager.muted)	{
+		MusicControl.Mute();
+		GameManager.SoundSource.mute = true;
+	}
+	else {
+		MusicControl.Unmute();
+		GameManager.SoundSource.mute = false;
+	}
 }
 
 function btn_home () {
 	Time.timeScale = 1;	
 	Application.LoadLevel(1);
+	MusicControl.PlayMainBGM();
 }

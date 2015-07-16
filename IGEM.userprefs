@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\Mutebutton.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\PauseMenuBtn.js">
     <Files>
-      <File FileName="Assets\scripts\PauseMenuBtn.js" Line="10" Column="1" />
-      <File FileName="Assets\scripts\GameManager.js" Line="24" Column="27" />
-      <File FileName="Assets\scripts\Mutebutton.js" Line="11" Column="2" />
+      <File FileName="Assets\scripts\GameManager.js" Line="64" Column="2" />
+      <File FileName="Assets\scripts\PauseMenuBtn.js" Line="15" Column="42" />
+      <File FileName="Assets\scripts\PauseBtn.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

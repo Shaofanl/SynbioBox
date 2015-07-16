@@ -4,6 +4,7 @@ var startTime : float;
 
 function Start () {
 	startTime = Time.time;
+	MusicControl.PlayMainBGM();
 }
 
 function Update () {

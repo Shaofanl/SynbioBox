@@ -32,6 +32,14 @@ static var nextPart : String;
 static var isGodMode : boolean = false;
 static var GodModeTime : float;
 
+var correctCatchClip : AudioClip;
+var correctMissClip : AudioClip;
+var lossLifeClip : AudioClip;
+static var _correctCatchClip : AudioClip;
+static var _correctMissClip : AudioClip;
+static var _lossLifeClip : AudioClip;
+static var SoundSource : AudioSource;
+
 function Start () {
 
 // part positions
@@ -45,6 +53,23 @@ function Start () {
 	*/	
 //	bg_box.position = new Vector3(0f, 229f, 0f);
 
+
+// BGM
+	MusicControl.PlayGameBGM();
+	_correctCatchClip = correctCatchClip;
+	_correctMissClip = correctMissClip;
+	_lossLifeClip = lossLifeClip;
+	SoundSource = gameObject.AddComponent(AudioSource); 
+	
+	if (GameManager.muted)	{
+		MusicControl.Mute();
+		SoundSource.mute = true;
+	}
+	else {
+		MusicControl.Unmute();
+		SoundSource.mute = false;
+	}
+	
 // time setting
 	startTime = Time.time;
 	
@@ -102,7 +127,7 @@ function Update () {
 	}
 	
 	GameObject.FindGameObjectWithTag("lifeLabel").GetComponent.<UI.Text>().text = 
-				String.Format("X {0}", life);
+				String.Format("x{0}", life);
 	
 	// Endless Mode
 	if (isEndlessMode) {
@@ -148,6 +173,10 @@ static function Score (point : float) {
 }
 static function Dead () {
 	life--;
+	
+	SoundSource.clip = _lossLifeClip;
+	SoundSource.Play();
+	
 	if (life <= 0) {
 		GameManager.isPlaying = false;
 		Application.LoadLevel(5);
@@ -165,7 +194,7 @@ static function CatchPart(part : String) {
 			//nextPart = 'A';
 		}
 		else { // Endless Mode: Catch correct
-			Score(1.0);
+			Score(1.0);			
 			if (nextPart == 'A') nextPart = 'B';
 			else if (nextPart == 'B') nextPart = 'C';
 			else if (nextPart == 'C') nextPart = 'D';
@@ -174,6 +203,9 @@ static function CatchPart(part : String) {
 				Score(4.0); // extra credit
 				energyUp(10);
 			}
+			
+			SoundSource.clip = _correctCatchClip;
+			SoundSource.Play();			
 		}
 	}
 	else { // debug mode
@@ -187,6 +219,9 @@ static function MissPart(part : String) {
 		if (part[9] != nextPart) { // Endless Mode: Miss correct
 			Score(1.0);
 			energyUp(2);
+						
+			SoundSource.clip = _correctMissClip;
+			SoundSource.Play();
 		}
 		else { // Endless Mode: Miss wrong
 			Debug.Log("miss wrong");
