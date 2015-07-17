@@ -179,7 +179,7 @@ static function Score (point : float) {
 static function Dead () {
 	life--;
 	
-	SoundSource.volume = 0.2;
+	SoundSource.volume = 0.05;
 	SoundSource.clip = _lossLifeClip;
 	SoundSource.Play();
 	
@@ -262,6 +262,8 @@ static function MissPart(part : String) {
 
 function OnGUI () {
 	//GUI.Label (new Rect (Screen.width/2-120, 3, 100, 100), "Score: " + score);
+	//GUI.Label (new Rect (Screen.width/2, 3, 300, 300), "x: " + BoxControl.boxx);
+	//GUI.Label (new Rect (Screen.width/2, 10, 300, 300), "x: " + BoxControl.touchx);
 }
 
 

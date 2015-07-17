@@ -30,7 +30,7 @@ static function ChangePitch(p : float) {
 }
 
 static function PlayMainBGM() { 
-	Debug.Log("asdf");
+	//Debug.Log("asdf");
 	SoundSource.clip = MainBGM; 
 	SoundSource.Play(); 
 }
