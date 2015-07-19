@@ -1,9 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\MainEscape.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\GameManager.js">
     <Files>
-      <File FileName="Assets\scripts\BoxControl.js" Line="41" Column="4" />
-      <File FileName="Assets\scripts\MainEscape.js" Line="6" Column="21" />
+      <File FileName="Assets\scripts\GameManager.js" Line="290" Column="75" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
