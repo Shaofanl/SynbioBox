@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\BoxControl.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\GameManager.js">
     <Files>
-      <File FileName="Assets\scripts\BoxControl.js" Line="26" Column="22" />
-      <File FileName="Assets\scripts\GameManager.js" Line="83" Column="36" />
+      <File FileName="Assets\scripts\GameManager.js" Line="128" Column="19" />
+      <File FileName="Assets\scripts\EM_OverMenu.js" Line="21" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

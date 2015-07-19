@@ -48,21 +48,25 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\BioinfoBtn.js" />
      <Compile Include="Assets\scripts\BoxControl.js" />
+     <Compile Include="Assets\scripts\Collections.js" />
      <Compile Include="Assets\scripts\EM_OverMenu.js" />
      <Compile Include="Assets\scripts\GameManager.js" />
      <Compile Include="Assets\scripts\Helpbtn.js" />
      <Compile Include="Assets\scripts\Intro.js" />
      <Compile Include="Assets\scripts\MainControl.js" />
+     <Compile Include="Assets\scripts\MainEscape.js" />
      <Compile Include="Assets\scripts\MusicControl.js" />
      <Compile Include="Assets\scripts\Mutebutton.js" />
      <Compile Include="Assets\scripts\PartBhv.js" />
      <Compile Include="Assets\scripts\PauseBtn.js" />
      <Compile Include="Assets\scripts\PauseMenuBtn.js" />
      <Compile Include="Assets\scripts\ReturnBtn.js" />
+     <Compile Include="Assets\scripts\Tutorial.js" />
      <None Include="Assets\Pics\game\game_guides.txt" />
      <None Include="Assets\Pics\game\game_coordinate.txt" />
      <None Include="Assets\Pics\main\main_coordinate.txt" />
      <None Include="Assets\Pics\over\over_text.txt" />
+     <None Include="Assets\Pics\hierarchy\背景图片分层.txt" />
      <None Include="Assets\Music\说明.txt" />
      <None Include="Assets\Pics\over_em\over_text.txt" />
      <None Include="Assets\Pics\game\game_text.txt" />

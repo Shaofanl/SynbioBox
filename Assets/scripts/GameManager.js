@@ -11,7 +11,7 @@ var bg_down : Transform;
 
 var startTime : float;
 var last_part_time : float;
-static var part_frequent: float = 1.0; // in second
+static var drop_frequency: float = 1.0; // in second
 
 var leftWall : BoxCollider2D;
 var rightWall : BoxCollider2D;
@@ -19,6 +19,8 @@ var rightWall : BoxCollider2D;
 static var isStageMode: boolean;
 static var isEndlessMode: boolean;
 static var isPlaying: boolean = false;
+static var isPause: boolean = false;
+static var isOver: boolean = false;
 
 static var score : int = 0;
 static var life : int = 5;
@@ -26,11 +28,9 @@ static var drop_speed : float = -400;
 static var muted : boolean;
 
 // endless mode
-static var maxScore : int = 0;
-static var energyBar : int = 0;
-static var nextPart : String;
-static var isGodMode : boolean = false;
-static var GodModeTime : float;
+static var max_score : int = 0;
+static var energy_bar : int = 0;
+static var next_part : String;
 
 var correctCatchClip : AudioClip;
 var correctMissClip : AudioClip;
@@ -40,11 +40,14 @@ static var _correctMissClip : AudioClip;
 static var _lossLifeClip : AudioClip;
 static var SoundSource : AudioSource;
 
-static var intimes :int = 0;
+// 
+static var speed_level : int = 0;
+static var pitch_level : float = 1;
+static var drop_level: float = 1.0;
+static var isGodMode : boolean = false;
+static var GodModeTime : float;
 
 function Start () {
-	intimes ++;
-
 // part positions
 	/*
 		game_box y=229 148*71
@@ -87,18 +90,23 @@ function Start () {
 	score = 0;
 	
 	if (isEndlessMode) {
-		if (PlayerPrefs.HasKey("maxScore")) {
-			maxScore = PlayerPrefs.GetInt("maxScore");
+		if (PlayerPrefs.HasKey("max_score")) {
+			max_score = PlayerPrefs.GetInt("max_score");
 		}
 		else {
-			maxScore = 0;
-			PlayerPrefs.SetInt("maxScore", maxScore);
+			max_score = 0;
+			PlayerPrefs.SetInt("max_score", max_score);
 		}
-		energyBar = 0;
-		nextPart = 'A';
+		energy_bar = 0;
+		next_part = 'A';
 		isGodMode = false;
+		pitch_level = 1;
+		drop_level = 1;
+		speed_level = 1;
 	}
 	isPlaying = true;
+	isPause = false;
+	isOver = false;
 	
 	if (muted) {
 		var l = GameObject.FindGameObjectsWithTag("mute_btn");	
@@ -115,10 +123,33 @@ function SetSize(trans : RectTransform , newSize : Vector2) {
     trans.offsetMax = trans.offsetMax + new Vector2(deltaSize.x * (1f - trans.pivot.x), deltaSize.y * (1f - trans.pivot.y));
 }
 function Update () {
+	if (Input.GetKeyDown(KeyCode.Escape)) { // Escape is top-priority
+		var box = GameObject.FindGameObjectWithTag("Pause");
+		if (isPlaying) {
+			Time.timeScale = 0;
+			box.GetComponent(RectTransform).localPosition.z = -3;
+			isPlaying = false;
+			isPause = true;
+		} else if (isPause) {
+			box.GetComponent(RectTransform).localPosition.z = -100;
+			Time.timeScale = 1;	
+			isPause = false;
+			isPlaying = true;
+		} else if (isOver) {
+			Time.timeScale = 1;	
+			Application.LoadLevel(1);
+			MusicControl.PlayMainBGM();
+			
+			GameManager.isOver = false;
+			GameManager.isPlaying = false;	
+		}
+	}
+	
 	if (!isPlaying) return;
+	
 	var guiTime = Time.time - startTime;
 	
-	if (guiTime - last_part_time > part_frequent+Random.Range(-0.3, 0.3)) {
+	if (guiTime - last_part_time > drop_frequency+Random.Range(-0.3, 0.3)) {
 		last_part_time = guiTime;
 				
 		var part_no : int = Random.Range(0, 4);
@@ -136,23 +167,26 @@ function Update () {
 	if (isEndlessMode) {
 		// draw
 		var boxsize = GameObject.FindGameObjectWithTag("Panel").GetComponent.<RectTransform>().rect.size;
-		GameObject.FindGameObjectWithTag("Bar").GetComponent.<RectTransform>().sizeDelta = new Vector2((2*energyBar/100f-1) * boxsize.x, boxsize.y);			 
-		//Debug.Log(energyBar);
+		GameObject.FindGameObjectWithTag("Bar").GetComponent.<RectTransform>().sizeDelta = new Vector2((2*energy_bar/100f-1) * boxsize.x, boxsize.y);			 
+		//Debug.Log(energy_bar);
 		
 		// score vs maxscore
 		GameObject.FindGameObjectWithTag("scoreLabel").GetComponent.<UI.Text>().text = 
-				String.Format("{0:0000}/{1:0000}", score, maxScore);
+				String.Format("{0:0000}/{1:0000}", score, max_score);
 		
 		// God Mode
 		if (isGodMode) {
 			var godtime = Time.time - GodModeTime;
 			if (godtime > 10) {
+				next_part = 'A';
 				isGodMode = false;
+				
 				MusicControl.ChangePitch(1.0);
-				drop_speed /= 2f;
+				drop_speed /= (speed_level+1);				
+				drop_frequency = 1.0;
 			}
 			else {
-				energyBar = (1f - godtime/10f)*100f;
+				energy_bar = (1f - godtime/10f)*100f;
 			}
 		}
 	}
@@ -160,20 +194,26 @@ function Update () {
 
 
 static function energyUp(delta : int) {
-	energyBar += delta;
+	energy_bar += delta;
 	
-	if (energyBar > 100) {
+	if (energy_bar > 100) {
 		isGodMode = true;
-		MusicControl.ChangePitch(1.3);
-		drop_speed *= 2f;
+		
+		speed_level += 1;
+		pitch_level *= 1.2; // increasement
+		drop_level *= 0.95; 
+		MusicControl.ChangePitch(pitch_level);
+		drop_speed *= (speed_level+1);
+		drop_frequency = drop_level;
+				
 		GodModeTime = Time.time;
 	}
 }
 static function Score (point : float) {
 	score += point;
-	if (score > maxScore) {
-		maxScore = score;
-		PlayerPrefs.SetInt("maxScore", maxScore);
+	if (score > max_score) {
+		max_score = score;
+		PlayerPrefs.SetInt("max_score", max_score);
 	}
 }
 static function Dead () {
@@ -191,10 +231,12 @@ static function Dead () {
 		if (isEndlessMode) {
 			var box = GameObject.FindGameObjectWithTag("EM_Over");
 			box.GetComponent(RectTransform).localPosition.z = -3;
+			GameManager.isOver = true;
+			GameManager.isPlaying = false;
 			
 			var texts = GameObject.FindGameObjectsWithTag("EM_Over_Text");
-			texts[0].GetComponent.<UI.Text>().text = String.Format("{0:0000}", maxScore);
-			texts[1].GetComponent.<UI.Text>().text = String.Format("times of invincible state: {0:000}", intimes);			
+			texts[0].GetComponent.<UI.Text>().text = String.Format("{0:0000}", max_score);
+			texts[1].GetComponent.<UI.Text>().text = String.Format("speed level: {0:000}", speed_level);			
 			texts[2].GetComponent.<UI.Text>().text = String.Format("{0:0000}", score);			
 		}
 		else 
@@ -211,20 +253,20 @@ static function CatchPart(part : String) {
 			Score(2.0);
 			return;
 		}
-		if (part[9] != nextPart) { // Endless Mode: Catch wrong
+		if (part[9] != next_part) { // Endless Mode: Catch wrong
 			Debug.Log("catch wrong");
 			Dead();
-			//nextPart = 'A';
+			//next_part = 'A';
 		}
 		else { // Endless Mode: Catch correct
 			Score(1.0);			
-			if (nextPart == 'A') nextPart = 'B';
-			else if (nextPart == 'B') nextPart = 'C';
-			else if (nextPart == 'C') nextPart = 'D';
-			else if (nextPart == 'D') {
-				nextPart = 'A';
+			if (next_part == 'A') next_part = 'B';
+			else if (next_part == 'B') next_part = 'C';
+			else if (next_part == 'C') next_part = 'D';
+			else if (next_part == 'D') {	
+				next_part = 'A';
 				Score(4.0); // extra credit
-				//energyUp(10);
+				energyUp(50);
 			}
 			
 			SoundSource.volume = 1.0;
@@ -240,7 +282,7 @@ static function CatchPart(part : String) {
 static function MissPart(part : String) {
 	if (isEndlessMode) { // Endless Mode
 		if (isGodMode) return;
-		if (part[9] != nextPart) { // Endless Mode: Miss correct
+		if (part[9] != next_part) { // Endless Mode: Miss correct
 			Score(1.0);
 			energyUp(2);
 						
@@ -251,7 +293,7 @@ static function MissPart(part : String) {
 		else { // Endless Mode: Miss wrong
 			Debug.Log("miss wrong");
 			Dead();
-			//nextPart = 'A';
+			//next_part = 'A';
 		}
 	}
 	else { // debug mode

@@ -4,6 +4,8 @@ function btn_continue () {
 	var box = GameObject.FindGameObjectWithTag("Pause");
 	box.GetComponent(RectTransform).localPosition.z = -100;
 	Time.timeScale = 1;	
+	GameManager.isPause = false;
+	GameManager.isPlaying = true;
 }
 
 function btn_mute () {
@@ -27,4 +29,6 @@ function btn_home () {
 	Time.timeScale = 1;	
 	Application.LoadLevel(1);
 	MusicControl.PlayMainBGM();
+	GameManager.isPause = false;
+	GameManager.isPlaying = false;
 }
