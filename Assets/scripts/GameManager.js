@@ -61,7 +61,7 @@ static function BigLabelFade(ft : float, s : String) {
 	is_fading = true;
 	var l = GameObject.FindGameObjectWithTag("biglabel").GetComponent.<UI.Text>();
 	l.text = s;
-	l.fontSize = 150;
+	l.fontSize = 200;
 	l.color.a = 1.0;
 }
 function BigLabelFading() {
@@ -75,7 +75,7 @@ function BigLabelFading() {
 	else {
 		var l = GameObject.FindGameObjectWithTag("biglabel").GetComponent.<UI.Text>();
 		l.color.a = 1.0 - passed/fade_time;
-		l.fontSize = 150 + 20*passed/fade_time;
+		l.fontSize = 200 + 20*passed/fade_time;
 	}
 }
 
@@ -212,15 +212,15 @@ function Update () {
 		if (isGodMode) {
 			var godtime = Time.time - GodModeTime;
 			if (godtime >= 7 && god_time_label7) {
-				BigLabelFade(0.8, "3!");
+				BigLabelFade(0.8, "3");
 				god_time_label7 = false;
 			} 
 			if (godtime >= 8 && god_time_label8) {
-				BigLabelFade(0.8, "2!");
+				BigLabelFade(0.8, "2");
 				god_time_label8 = false;
 			} 			
 			if (godtime >= 9 && god_time_label9) {
-				BigLabelFade(0.8, "1!");
+				BigLabelFade(0.8, "1");
 				god_time_label9 = false;
 			} 			
 			if (godtime > 10) {

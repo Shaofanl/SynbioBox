@@ -1,0 +1,2 @@
+tutorial_page2_1 x=259 y=1470 309*309
+tutorial_page2_2 x=259 y=738 309*309

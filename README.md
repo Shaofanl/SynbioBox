@@ -19,4 +19,7 @@ A Game project in iGEM
     + Level speed up
     + Over UI
     + Fading Countdown
+- 1.77
+    + The font size
+
 

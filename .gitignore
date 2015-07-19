@@ -1,2 +1,5 @@
 Build/
 Library/
+*.csproj
+*.sln
+*.swp
