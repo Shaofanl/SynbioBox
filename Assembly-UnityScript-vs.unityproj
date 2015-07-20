@@ -62,6 +62,10 @@
      <Compile Include="Assets\scripts\PauseMenuBtn.js" />
      <Compile Include="Assets\scripts\ReturnBtn.js" />
      <Compile Include="Assets\scripts\Tutorial.js" />
+     <Compile Include="Assets\scripts\Tutorial_0_0.js" />
+     <Compile Include="Assets\scripts\Tutorial_0_1.js" />
+     <Compile Include="Assets\scripts\Tutorial_0_2.js" />
+     <Compile Include="Assets\scripts\Tutorial_1_0.js" />
      <None Include="Assets\Pics\game\game_guides.txt" />
      <None Include="Assets\Pics\tutorial\tutorial\tutorial_coordinate.txt" />
      <None Include="Assets\Pics\game\game_coordinate.txt" />

@@ -24,3 +24,6 @@ A Game project in iGEM
 - 1.78
     + Add tips
 
+1.8
+---
+- Add tutorial (bio part)
