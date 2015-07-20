@@ -1,0 +1,7 @@
+game_tips_0：当下一个要接到的part是A（启动子）的时候，比如游戏一开始以及Invincible结束。
+game_tips_1：当下一个要接到的part是B（RBS）的时候。
+game_tips_2：当下一个要接到的part是C（CDS）的时候。
+game_tips_3：当下一个要接到的part是D（terminator）的时候。
+
+所有四张图都在背景图层之上，parts图层之下。
+左边紧靠界面边缘，具体位置按照game_tips_final里这部分的位置来做~（因为你说坐标不一样嘛）

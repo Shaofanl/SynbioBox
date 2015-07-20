@@ -21,5 +21,6 @@ A Game project in iGEM
     + Fading Countdown
 - 1.77
     + The font size
-
+- 1.78
+    + Add tips
 

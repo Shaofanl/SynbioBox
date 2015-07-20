@@ -55,6 +55,18 @@ static var fade_time : float;
 static var fade_start_time : float;
 static var is_fading : boolean = false;
 
+
+static function prepare_next_part(c : String) {
+	var main = GameObject.FindGameObjectWithTag("Tip_main").GetComponent.<SpriteRenderer>();
+	
+	var tips = GameObject.FindGameObjectsWithTag("Tips");
+	next_part = c;
+	if (c == 'A') main.sprite = tips[1].GetComponent.<SpriteRenderer>().sprite; // 0
+	if (c == 'B') main.sprite = tips[3].GetComponent.<SpriteRenderer>().sprite; // 1
+	if (c == 'C') main.sprite = tips[2].GetComponent.<SpriteRenderer>().sprite; // 2
+	if (c == 'D') main.sprite = tips[0].GetComponent.<SpriteRenderer>().sprite; // 3
+}
+
 static function BigLabelFade(ft : float, s : String) {
 	fade_time = ft;
 	fade_start_time = Time.time;
@@ -132,7 +144,7 @@ function Start () {
 			PlayerPrefs.SetInt("max_score", max_score);
 		}
 		energy_bar = 0;
-		next_part = 'A';
+		prepare_next_part('A');
 		isGodMode = false;
 		speed_level = 1;
 		GameObject.FindGameObjectWithTag("Lv").GetComponent.<UI.Text>().text="Lv1";
@@ -224,7 +236,6 @@ function Update () {
 				god_time_label9 = false;
 			} 			
 			if (godtime > 10) {
-				next_part = 'A';
 				isGodMode = false;
 				
 				MusicControl.ChangePitch(1.0);
@@ -245,6 +256,7 @@ static function energyUp(delta : int) {
 	
 	if (energy_bar > 100) {
 		isGodMode = true;
+		prepare_next_part('A');
 		
 		god_time_label9 = true;
 		god_time_label8 = true;
@@ -314,11 +326,11 @@ static function CatchPart(part : String) {
 		}
 		else { // Endless Mode: Catch correct
 			Score(1.0);			
-			if (next_part == 'A') next_part = 'B';
-			else if (next_part == 'B') next_part = 'C';
-			else if (next_part == 'C') next_part = 'D';
+			if (next_part == 'A') prepare_next_part('B');
+			else if (next_part == 'B') prepare_next_part('C');
+			else if (next_part == 'C') prepare_next_part('D');
 			else if (next_part == 'D') {	
-				next_part = 'A';
+				prepare_next_part('A');
 				Score(4.0); // extra credit
 				energyUp(50);
 			}

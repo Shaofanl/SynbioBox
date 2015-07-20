@@ -69,6 +69,7 @@
      <None Include="Assets\Pics\over\over_text.txt" />
      <None Include="Assets\Pics\hierarchy\背景图片分层.txt" />
      <None Include="Assets\Music\说明.txt" />
+     <None Include="Assets\Pics\game_tips\game_tips.txt" />
      <None Include="Assets\Pics\over_em\over_text.txt" />
      <None Include="Assets\Pics\game\game_text.txt" />
      <None Include="Assets\Pics\over_em\over_coordinate.txt" />
