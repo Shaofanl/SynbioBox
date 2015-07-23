@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_5_1_1;UNITY_5_1;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_LICENSE;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_EDITOR_METRICS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_5_1_1;UNITY_5_1;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_LICENSE;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_EDITOR_METRICS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;UNITY_WEBGL;ENABLE_TEXTUREID_MAP;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_IL2CPP;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -46,10 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Tutorial_htp_GM.js" />
      <Compile Include="Assets\scripts\BioinfoBtn.js" />
      <Compile Include="Assets\scripts\BoxControl.js" />
      <Compile Include="Assets\scripts\Collections.js" />
      <Compile Include="Assets\scripts\EM_OverMenu.js" />
+     <Compile Include="Assets\scripts\EM_tutorial_control.js" />
      <Compile Include="Assets\scripts\GameManager.js" />
      <Compile Include="Assets\scripts\Helpbtn.js" />
      <Compile Include="Assets\scripts\Intro.js" />
@@ -61,11 +63,17 @@
      <Compile Include="Assets\scripts\PauseBtn.js" />
      <Compile Include="Assets\scripts\PauseMenuBtn.js" />
      <Compile Include="Assets\scripts\ReturnBtn.js" />
-     <Compile Include="Assets\scripts\Tutorial.js" />
      <Compile Include="Assets\scripts\Tutorial_0_0.js" />
-     <Compile Include="Assets\scripts\Tutorial_0_1.js" />
-     <Compile Include="Assets\scripts\Tutorial_0_2.js" />
-     <Compile Include="Assets\scripts\Tutorial_1_0.js" />
+     <Compile Include="Assets\scripts\Tutorial_bio_GM.js" />
+     <Compile Include="Assets\scripts\Tutorial_bio_back.js" />
+     <Compile Include="Assets\scripts\Tutorial_bio_gotit.js" />
+     <Compile Include="Assets\scripts\Tutorial_htp_back.js" />
+     <Compile Include="Assets\scripts\Tutorial_htp_gotit.js" />
+     <Compile Include="Assets\scripts\Tutorial_main_GM.js" />
+     <Compile Include="Assets\scripts\Tutorial_main_back.js" />
+     <Compile Include="Assets\scripts\Tutorial_main_biobtn.js" />
+     <Compile Include="Assets\scripts\Tutorial_main_htpbtn.js" />
+     <Compile Include="Assets\scripts\Tutorial_main_showbtn.js" />
      <None Include="Assets\Pics\game\game_guides.txt" />
      <None Include="Assets\Pics\tutorial\tutorial\tutorial_coordinate.txt" />
      <None Include="Assets\Pics\game\game_coordinate.txt" />

@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 
 var mainCam : Camera;
 
@@ -13,8 +13,6 @@ var startTime : float;
 var last_part_time : float;
 static var drop_frequency: float = 1.0; // in second
 
-var leftWall : BoxCollider2D;
-var rightWall : BoxCollider2D;
 
 static var isStageMode: boolean;
 static var isEndlessMode: boolean;
@@ -31,6 +29,9 @@ static var muted : boolean;
 static var max_score : int = 0;
 static var energy_bar : int = 0;
 static var next_part : String;
+
+// stage mode
+static var stage : int = 1;
 
 var correctCatchClip : AudioClip;
 var correctMissClip : AudioClip;
@@ -57,21 +58,42 @@ static var is_fading : boolean = false;
 
 
 static function prepare_next_part(c : String) {
-	var main = GameObject.FindGameObjectWithTag("Tip_main").GetComponent.<SpriteRenderer>();
+	next_part = c;
+	
+	if (isStageMode) {
+		if (c == 'A') {
+			GameObject.Find("lv1_gained_1").GetComponent.<SpriteRenderer>().color.a = 
+			GameObject.Find("lv1_gained_2").GetComponent.<SpriteRenderer>().color.a = 
+			GameObject.Find("lv1_gained_3").GetComponent.<SpriteRenderer>().color.a = 
+			GameObject.Find("lv1_gained_4").GetComponent.<SpriteRenderer>().color.a = 0.3;
+		}
+		else if (c == 'B'){
+			GameObject.Find("lv1_gained_1").GetComponent.<SpriteRenderer>().color.a = 1.0;
+		}
+		else if (c == 'C'){
+			GameObject.Find("lv1_gained_2").GetComponent.<SpriteRenderer>().color.a = 1.0;
+		}
+		else if (c == 'D'){
+			GameObject.Find("lv1_gained_3").GetComponent.<SpriteRenderer>().color.a = 1.0;
+		}
+	}
+	
+	/*
+	var main = GameObject.Find("Tip_main").GetComponent.<SpriteRenderer>();
 	
 	var tips = GameObject.FindGameObjectsWithTag("Tips");
-	next_part = c;
 	if (c == 'A') main.sprite = tips[1].GetComponent.<SpriteRenderer>().sprite; // 0
 	if (c == 'B') main.sprite = tips[3].GetComponent.<SpriteRenderer>().sprite; // 1
 	if (c == 'C') main.sprite = tips[2].GetComponent.<SpriteRenderer>().sprite; // 2
 	if (c == 'D') main.sprite = tips[0].GetComponent.<SpriteRenderer>().sprite; // 3
+	*/
 }
 
 static function BigLabelFade(ft : float, s : String) {
 	fade_time = ft;
 	fade_start_time = Time.time;
 	is_fading = true;
-	var l = GameObject.FindGameObjectWithTag("biglabel").GetComponent.<UI.Text>();
+	var l = GameObject.Find("biglabel").GetComponent.<UI.Text>();
 	l.text = s;
 	l.fontSize = 200;
 	l.color.a = 1.0;
@@ -85,7 +107,7 @@ function BigLabelFading() {
 		return;
 	}
 	else {
-		var l = GameObject.FindGameObjectWithTag("biglabel").GetComponent.<UI.Text>();
+		var l = GameObject.Find("biglabel").GetComponent.<UI.Text>();
 		l.color.a = 1.0 - passed/fade_time;
 		l.fontSize = 200 + 20*passed/fade_time;
 	}
@@ -124,11 +146,12 @@ function Start () {
 	startTime = Time.time;
 	
 // 1100 * 618
-	leftWall.size = new Vector2(200f, mainCam.ScreenToWorldPoint(new Vector3(0f, 2048f, 0f)).y);;
+	/*leftWall.size = new Vector2(200f, mainCam.ScreenToWorldPoint(new Vector3(0f, 2048f, 0f)).y);;
 	leftWall.offset = new Vector2(-618f-100f, 0f);
 	
 	rightWall.size = new Vector2(200f, mainCam.ScreenToWorldPoint(new Vector3(0f, 2048f, 0f)).y);
 	rightWall.offset = new Vector2(618f+100f, 0f);
+	*/
 	
 	life = 5;
 	score = 0;
@@ -147,8 +170,18 @@ function Start () {
 		prepare_next_part('A');
 		isGodMode = false;
 		speed_level = 1;
-		GameObject.FindGameObjectWithTag("Lv").GetComponent.<UI.Text>().text="Lv1";
+		GameObject.Find("Lv").GetComponent.<UI.Text>().text="Lv1";
+		GameObject.Find("ScorePanel").GetComponent.<RectTransform>().position.z = 0;
+		GameObject.Find("em_background").GetComponent.<Transform>().position.z = 8;		
+		GameObject.Find("em_background").GetComponent.<Transform>().position.x = 0;
+		GameObject.Find("scoreLabel").GetComponent.<RectTransform>().position.z = 0;
 	}
+	
+	if (isStageMode) {
+		prepare_next_part('A');
+		GameObject.Find("Lv").GetComponent.<UI.Text>().text="Lv"+stage;
+	}	
+	
 	isPlaying = true;
 	isPause = false;
 	isOver = false;
@@ -195,25 +228,34 @@ function Update () {
 	
 	var guiTime = Time.time - startTime;
 	
+	// create part
 	if (guiTime - last_part_time > drop_frequency+Random.Range(-drop_frequency*0.3, drop_frequency*0.3)) {
 		last_part_time = guiTime;
-				
-		var part_no : int = Random.Range(0, 4);
-		var part_color : int = Random.Range(0, 8);
-		var pos: float = Random.Range(-550, 550);
 		
-		var part = GameObject.FindGameObjectsWithTag("Part"+part_no)[part_color];		
+		var part;
+		var pos: float = Random.Range(-550, 550);
+		if (isStageMode && Random.Range(0f, 1f) < 0.10) {
+			part = GameObject.Find("stage_"+stage);
+		}
+		else {	
+			var part_no : int = Random.Range(0, 4);
+			var part_color : int = Random.Range(0, 8);			
+			
+			part = GameObject.FindGameObjectsWithTag("Part"+part_no)[part_color];
+		}
 		Instantiate(part, Vector3(pos, 1100f, 0f), Quaternion.identity);
 	}
 	
 	GameObject.FindGameObjectWithTag("lifeLabel").GetComponent.<UI.Text>().text = 
 				String.Format("x{0}", life);
 	
+	
+	
 	// Endless Mode
 	if (isEndlessMode) {
 		// draw
-		var boxsize = GameObject.FindGameObjectWithTag("Panel").GetComponent.<RectTransform>().rect.size;
-		GameObject.FindGameObjectWithTag("Bar").GetComponent.<RectTransform>().sizeDelta = new Vector2((2*energy_bar/100f-1) * boxsize.x, boxsize.y);			 
+		var boxsize = GameObject.Find("ScorePanel").GetComponent.<RectTransform>().rect.size;
+		GameObject.Find("ScoreBar").GetComponent.<RectTransform>().sizeDelta = new Vector2((2*energy_bar/100f-1) * boxsize.x, boxsize.y);			 
 		//Debug.Log(energy_bar);
 		
 		// score vs maxscore
@@ -248,6 +290,11 @@ function Update () {
 			}
 		}
 	}
+	
+	
+	// Stage Mode
+	if (isStageMode) {
+	}
 }
 
 
@@ -264,7 +311,7 @@ static function energyUp(delta : int) {
 		BigLabelFade(1.0, "Invincible!");
 		
 		speed_level += 1;		
-		GameObject.FindGameObjectWithTag("Lv").GetComponent.<UI.Text>().text="Lv"+speed_level;
+		GameObject.Find("Lv").GetComponent.<UI.Text>().text="Lv"+speed_level;
 		MusicControl.ChangePitch(1.2);
 		drop_speed *= acc_alpha;
 		drop_frequency /= acc_alpha;
@@ -309,6 +356,7 @@ static function Dead () {
 }
 
 
+
 static function CatchPart(part : String) {
 	if (isEndlessMode) { // Endless Mode
 		if (isGodMode) { // God Mode			
@@ -340,6 +388,33 @@ static function CatchPart(part : String) {
 			SoundSource.Play();			
 		}
 	}
+	else if (isStageMode) {
+		SoundSource.volume = 1.0;
+		SoundSource.clip = _correctCatchClip;
+		SoundSource.Play();	
+		
+		if (part == GameObject.Find("stage_"+stage).name) {
+			// next level
+			prepare_next_part('D');
+		}
+		else if (part[9] != next_part) { // normal part and catching wrong
+			Debug.Log("catch wrong");
+			Dead();
+			//next_part = 'A';
+		}
+		else { // normal part and catching right
+			if (next_part == 'A') prepare_next_part('B');
+			else if (next_part == 'B') prepare_next_part('C');
+			else if (next_part == 'C') prepare_next_part('D');
+			else if (next_part == 'D') prepare_next_part('A');
+			
+			SoundSource.volume = 1.0;
+			SoundSource.clip = _correctCatchClip;
+			SoundSource.Play();				
+		}
+		
+		
+	}
 	else { // debug mode
 		Score(1.0);
 		//Debug.Log("catch"+part[9]);
@@ -361,6 +436,29 @@ static function MissPart(part : String) {
 			Dead();
 			//next_part = 'A';
 		}
+	}
+	else if (isStageMode) {
+		if (part == GameObject.Find("stage_"+stage).name) {
+			if (next_part == 'C') 
+				Dead();
+			else {				
+				SoundSource.volume = 1.0;
+				SoundSource.clip = _correctMissClip;
+				SoundSource.Play();
+			}
+		}
+		else { // normal part
+			if (part[9] != next_part) {
+				SoundSource.volume = 1.0;
+				SoundSource.clip = _correctMissClip;
+				SoundSource.Play();
+			}
+			else {
+				Dead();
+			}
+		}
+		
+		
 	}
 	else { // debug mode
 		Dead();

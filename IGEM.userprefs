@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\MusicControl.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Tutorial_htp_GM.js">
     <Files>
-      <File FileName="Assets\scripts\MusicControl.js" Line="25" Column="1" />
+      <File FileName="Assets\Tutorial_htp_GM.js" Line="7" Column="2" />
+      <File FileName="Assets\scripts\Tutorial_bio_GM.js" Line="2" Column="1" />
+      <File FileName="Assets\scripts\Tutorial_main_GM.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

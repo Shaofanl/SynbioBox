@@ -27,3 +27,7 @@ A Game project in iGEM
 1.8
 ---
 - Add tutorial (bio part)
+- 1.82
+    + Remove tips
+- 1.85
+    + Picture tutorial done
