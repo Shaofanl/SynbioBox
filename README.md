@@ -31,3 +31,5 @@ A Game project in iGEM
     + Remove tips
 - 1.85
     + Picture tutorial done
+- 1.88
+    + Interactive tutorial

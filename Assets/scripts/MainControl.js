@@ -8,7 +8,7 @@ function Start() {
 function setStageMode() {
 	GameManager.isStageMode = true;
 	GameManager.isEndlessMode = false;
-	Application.LoadLevel(4);
+	Application.LoadLevel(9);
 }
 
 function setEndlessMode() {
@@ -17,7 +17,7 @@ function setEndlessMode() {
 	GameManager.isStageMode = false;
 	GameManager.isEndlessMode = true;
 	if (em_need_help == 1) {
-		PlayerPrefs.SetInt("em_need_help", 0);
+		//PlayerPrefs.SetInt("em_need_help", 0);
 			
 		Application.LoadLevel(8);
 	}

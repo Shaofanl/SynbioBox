@@ -114,6 +114,7 @@ function BigLabelFading() {
 }
 
 function Start () {
+	PlayerPrefs.SetInt("em_need_help", 0);//doesn't need tutorial
 // part positions
 	/*
 		game_box y=229 148*71
@@ -301,7 +302,7 @@ function Update () {
 static function energyUp(delta : int) {
 	energy_bar += delta;
 	
-	if (energy_bar > 100) {
+	if (energy_bar >= 100) {
 		isGodMode = true;
 		prepare_next_part('A');
 		

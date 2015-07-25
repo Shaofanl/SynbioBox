@@ -1,10 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Tutorial_htp_GM.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\EM_tutorial_specpart.js">
     <Files>
-      <File FileName="Assets\Tutorial_htp_GM.js" Line="7" Column="2" />
-      <File FileName="Assets\scripts\Tutorial_bio_GM.js" Line="2" Column="1" />
-      <File FileName="Assets\scripts\Tutorial_main_GM.js" Line="1" Column="1" />
+      <File FileName="Assets\EM_tutorial_specpart.js" Line="12" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
