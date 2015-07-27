@@ -13,7 +13,6 @@ var startTime : float;
 var last_part_time : float;
 static var drop_frequency: float = 1.0; // in second
 
-
 static var isStageMode: boolean;
 static var isEndlessMode: boolean;
 static var isPlaying: boolean = false;
@@ -56,6 +55,32 @@ static var fade_time : float;
 static var fade_start_time : float;
 static var is_fading : boolean = false;
 
+
+static function accelerate() {
+	MusicControl.ChangePitch(1.2);
+	
+	drop_speed = -400 * Mathf.Log(speed_level+2);
+	drop_frequency = -400/drop_speed;
+	BoxControl.speed = -1000/400 * drop_speed;
+	
+	/*drop_speed *= acc_alpha;
+	drop_frequency /= acc_alpha;
+	BoxControl.speed *= acc_alpha;	*/
+}
+static function decelerate() {
+	MusicControl.ChangePitch(1.0);
+	
+	drop_speed = -400 * Mathf.Log(speed_level+1);
+	drop_frequency = -400/drop_speed;
+	BoxControl.speed = -1000/400 * drop_speed;
+	
+	Debug.Log("speed_level:"+speed_level);
+	Debug.Log("speed:"+drop_speed);
+	
+	/*drop_speed = drop_speed/acc_alpha*acc_beta;				
+	BoxControl.speed = BoxControl.speed/acc_alpha*acc_beta;
+	drop_frequency = drop_frequency*acc_alpha/acc_beta; */
+}
 
 static function prepare_next_part(c : String) {
 	next_part = c;
@@ -129,6 +154,7 @@ function Start () {
 
 // BGM
 	MusicControl.PlayGameBGM();
+	MusicControl.ChangePitch(1.0);
 	_correctCatchClip = correctCatchClip;
 	_correctMissClip = correctMissClip;
 	_lossLifeClip = lossLifeClip;
@@ -238,6 +264,9 @@ function Update () {
 		if (isStageMode && Random.Range(0f, 1f) < 0.10) {
 			part = GameObject.Find("stage_"+stage);
 		}
+		if (isEndlessMode && Random.Range(0f, 1f) < 0.02) {
+			part = GameObject.Find("fun_part_heart");
+		}
 		else {	
 			var part_no : int = Random.Range(0, 4);
 			var part_color : int = Random.Range(0, 8);			
@@ -281,10 +310,7 @@ function Update () {
 			if (godtime > 10) {
 				isGodMode = false;
 				
-				MusicControl.ChangePitch(1.0);
-				drop_speed = drop_speed/acc_alpha*acc_beta;
-				drop_frequency = drop_frequency*acc_alpha/acc_beta;
-				BoxControl.speed = BoxControl.speed/acc_alpha*acc_beta;
+				decelerate();
 			}
 			else {
 				energy_bar = (1f - godtime/10f)*100f;
@@ -313,10 +339,7 @@ static function energyUp(delta : int) {
 		
 		speed_level += 1;		
 		GameObject.Find("Lv").GetComponent.<UI.Text>().text="Lv"+speed_level;
-		MusicControl.ChangePitch(1.2);
-		drop_speed *= acc_alpha;
-		drop_frequency /= acc_alpha;
-		BoxControl.speed *= acc_alpha;	
+		accelerate();
 				
 		GodModeTime = Time.time;
 	}
@@ -357,7 +380,16 @@ static function Dead () {
 }
 
 
-
+static function CatchFunPart(part : String) {
+	SoundSource.volume = 1.0;
+	SoundSource.clip = _correctCatchClip;
+	SoundSource.Play();	
+	
+	Debug.Log("function part:"+part);
+	if (part == "fun_part_heart(Clone)") {
+		if (life < 5) life ++;
+	}
+}
 static function CatchPart(part : String) {
 	if (isEndlessMode) { // Endless Mode
 		if (isGodMode) { // God Mode			
@@ -381,7 +413,7 @@ static function CatchPart(part : String) {
 			else if (next_part == 'D') {	
 				prepare_next_part('A');
 				Score(4.0); // extra credit
-				energyUp(50);
+				//energyUp(50);
 			}
 			
 			SoundSource.volume = 1.0;

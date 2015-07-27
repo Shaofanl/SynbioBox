@@ -2,7 +2,7 @@
 
 function OnMouseDown () {
 	// PlayerPrefs.Save(); automatically
-	GameManager.isPlaying = false;
+	//GameManager.isPlaying = false;
 	Application.LoadLevel(1);
 	//MusicControl.PlayMainBGM();
 }

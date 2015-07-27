@@ -3,6 +3,7 @@
 var startTime : float;
 
 function Start () {
+	Time.timeScale = 1;
 	startTime = Time.time;
 	MusicControl.PlayMainBGM();
 }

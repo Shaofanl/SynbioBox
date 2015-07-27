@@ -72,6 +72,7 @@ function BigLabelFading() {
 }
 
 function Start () {
+	Time.timeScale = 1;	
 // BGM
 	MusicControl.PlayGameBGM();
 	_correctCatchClip = correctCatchClip;
@@ -121,29 +122,34 @@ function Update () {
 	var guiTime = Time.time - startTime;
 	
 	// create part
-	if (guiTime - last_part_time > drop_frequency+Random.Range(-drop_frequency*0.3, drop_frequency*0.3)) {
+	if (guiTime - last_part_time > drop_frequency) {
 		last_part_time = guiTime;
 		
 		var part : GameObject;
 		var pos : float;
 		if (dropped_part == 0) {
-			pos = 249f;
+			pos = -395f;
 			part = GameObject.Find("spec_partA");
 			avoid_part++;
 		}
 		else if (dropped_part == 8) {
-			pos = 249f;
+			pos = 254;
 			part = GameObject.Find("spec_partB");
 			avoid_part++;
 		}
 		else if (dropped_part == 17) {
-			pos = 249f;
+			pos = -403;
 			part = GameObject.Find("spec_partC");
 			avoid_part++;
 		}
 		else if (dropped_part == 24) {
-			pos = 249f;
+			pos =  362;
 			part = GameObject.Find("spec_partD");
+			avoid_part++;
+		}		
+		else if (dropped_part == 40) {
+			pos = -401;
+			part = GameObject.Find("spec_partE");
 			avoid_part++;
 		}		
 		else {
@@ -188,8 +194,6 @@ function Update () {
 				drop_speed = drop_speed/acc_alpha*acc_beta;
 				drop_frequency = drop_frequency*acc_alpha/acc_beta;
 				BoxControl.speed = BoxControl.speed/acc_alpha*acc_beta;
-				
-				Application.LoadLevel(4);
 			}
 			else {
 				energy_bar = (1f - godtime/10f)*100f;

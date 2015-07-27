@@ -33,3 +33,6 @@ A Game project in iGEM
     + Picture tutorial done
 - 1.88
     + Interactive tutorial
+- 1.9
+    + Interactive tutorial++
+    + Add functional parts - the life package

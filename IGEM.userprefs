@@ -1,8 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\EM_tutorial_specpart.js">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\GameManager.js">
     <Files>
-      <File FileName="Assets\EM_tutorial_specpart.js" Line="12" Column="19" />
+      <File FileName="Assets\scripts\GameManager.js" Line="267" Column="51" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
