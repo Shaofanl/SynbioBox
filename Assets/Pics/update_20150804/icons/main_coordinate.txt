@@ -1,0 +1,8 @@
+main_logo x=621 y=1547 645*634
+main_stage x=621 y=895
+main_endless x=621 y=577
+main_01 x=347 y=144 138*138
+main_01_2 x=347 y=144 138*138
+main_02 x=531 y=144 138*138
+main_03 x=715 y=144 138*138
+main_04 x=899 y=144 138*138

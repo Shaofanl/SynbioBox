@@ -14,10 +14,21 @@ static function next() {
 		EM_tutorial_specpart.load_mask(8);
 	}
 	else if (EM_tutorial_specpart.current_mask == 8) {
+		EM_tutorial_specpart.load_mask(9);
+	}
+	else if (EM_tutorial_specpart.current_mask == 9) {
+		EM_tutorial_specpart.load_mask(10);
+	}
+	else if (EM_tutorial_specpart.current_mask == 10) {
+		EM_tutorial_specpart.load_mask(11);
+	}	
+	else if (EM_tutorial_specpart.current_mask == 11) {
+		Time.timeScale = 1.0f;
+		EM_tutorial_specpart.hide_mask();
 		Application.LoadLevel(4);
 	}
 	else {
-		GameObject.Find("mask").GetComponent.<Transform>().position.z = -100;
+		EM_tutorial_specpart.hide_mask();
 		Time.timeScale = 1;
 	}
 }

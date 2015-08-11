@@ -1,0 +1,6 @@
+all_button 是点击每个按钮时的音效
+game_bgm 是游戏界面和暂停界面的循环背景音
+game_catch 是接到正确parts时的音效
+game_failtocatch 是放过正确parts时的音效
+game_wrongparts 是接错parts或放错parts时的音效（扣生命值的音效）
+main_bgm 是主菜单界面、教程界面和结束界面的循环背景音

@@ -17,6 +17,7 @@ static var energy_bar : int = 0;
 static var next_part : String;
 static var dropped_part : int = 0;
 static var avoid_part : int = 0;
+static var in_tutorial: boolean = true;
 
 // sounds
 var correctCatchClip : AudioClip;
@@ -45,6 +46,12 @@ static var is_fading : boolean = false;
 
 static function prepare_next_part(c : String) {
 	next_part = c;
+	
+	var main = GameObject.Find("Tips").GetComponent.<UI.Text>();
+	if (c == 'A') main.text = "Next: Promoter"; // 0
+	if (c == 'B') main.text = "Next: RBS"; // 1
+	if (c == 'C') main.text = "Next: CDS"; // 2
+	if (c == 'D') main.text = "Next: Terminator"; // 3	
 }
 
 static function BigLabelFade(ft : float, s : String) {
@@ -189,6 +196,7 @@ function Update () {
 			} 			
 			if (godtime > 10) {
 				isGodMode = false;
+				prepare_next_part('A');
 				
 				MusicControl.ChangePitch(1.0);
 				drop_speed = drop_speed/acc_alpha*acc_beta;
@@ -207,7 +215,7 @@ static function energyUp(delta : int) {
 	
 	if (energy_bar >= 100) {
 		isGodMode = true;
-		prepare_next_part('A');
+		GameObject.Find("Tips").GetComponent.<UI.Text>().text = 'Anything';
 		
 		god_time_label9 = true;
 		god_time_label8 = true;

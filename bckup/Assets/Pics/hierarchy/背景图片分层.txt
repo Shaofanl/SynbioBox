@@ -1,0 +1,4 @@
+game_background_0~game_background_6均为背景需要用到的图片，数字顺序0~6表示前后，0在最前，6在最后。
+game_background_0和game_background_6静止不动。
+game_background_1~game_backgroud_5希望可以随着箱子的视角变化而有适量的移动。
+game_background是之前的效果图，可以做位置参考。

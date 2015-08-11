@@ -1,0 +1,39 @@
+乱点没事了
+不能开始的bug修复
+
+【音效】
+用game_bgm_2替换game_bgm，同时注意loop之间要紧密衔接。
+用main_bgm_2替换main_bgm，同时注意loop之间要紧密衔接。
+用game_failtocatch_2替换game_failtocatch。
+【界面】
+<综合>
+整体色彩饱和度对比度适当调低，缩小手机界面与电脑图片的色差。
+
+<具体>
+1.主菜单
+下面一排按钮上移到Main_0804_final_1示意位置，主菜单背景替换为Main_0804_background_1。
+
+5. 改图标
+
+4. （2）在交互教程之前加上静态教程的生物学知识介绍部分，玩家看到的这一部分和操作的方式都与点开教程界面里的“Tell me more biology！”一样，唯一的区别是最后一页的back不加，依然加“Got it！”。玩家第一次进入游戏默认先显示生物学知识介绍的教程，之后进入交互教程。
+
+2.游戏道具
+game_item_slowdown 接到之后触发效果：parts掉落速度瞬间减慢为原速度的一半，持续7秒，然后恢复接到道具前的速度。
+game_item_bomb 接到之后生命值-1。
+game_item_100points 接到之后+100得分。
+
+3.游戏提示
+将Game_0804_tips_1至Game_0804_tips_4加入游戏主界面最上方（在Game_0804_final_1中可以看到位置示意）。
+当接到一个Promoter后显示Game_0804_tips_1，接到一个RBS后显示Game_0804_tips_2，其他类推。
+
+===============================================
+
+4.游戏教程
+（1）交互：在tutorial7后面依次加上Tutorial_0804_addin_1至Tutorial_0804_addin_3。
+-------------------------
+
+1，对比度可能做不了，其实色调什么都能改....就是对比度改不了，只能往深了调，不能往浅了调
+2，marking这个词很奇怪，个人倾向rate这个词，你可以再去问问其他人~
+3，Last改成next会不会更好，因为如果上一个接的是special part呢？还有在invincible的时候last可能会有误导。btw, invincible的时候显示什么？
+4，在slowdown的过程中进入invincible要怎么设计？
+5，Tutorial_0804_addin_1是半透明的...他们的背景是什么
