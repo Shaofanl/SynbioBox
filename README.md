@@ -1,7 +1,7 @@
 Synbio Box
 ==========
 
-A Game project in iGEM
+A Game project in iGEM. Check more info on [our wiki](http://2015.igem.org/Team:SYSU-Software/Engagement#Practices2)
 
 1.6
 ---
